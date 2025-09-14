@@ -1,0 +1,57 @@
+<%- include("partials/header.ejs") %>
+<div class="post-container">
+    <% if (locals.posts) { %>
+        <% posts.forEach(post => { %>
+            <div class="post-object">
+                    <%= post.date %> 
+                <h3> 
+                    <%= post.title %> 
+                </h3>
+                <p> 
+                    by: <%= post.firstName + " " + post.lastName[0] %> 
+                </p>
+                <p> 
+                    <%= post.content %> 
+                </p>
+                <form id="delete-form" action="<%= post.id %>/delete" method="POST">
+                    <div class="post-form-object">
+                        <input type="submit" value="Delete">
+                    </div>
+                </form>
+                <form id="edit-form" action="<%= post.id %>/edit" method="POST">
+                    <div class="post-form-object">
+                        <input type="submit" value="Edit">
+                    </div>
+                </form>
+            </div>
+        <% }); %>
+    <% } %>
+</div>
+<div class="body-container">
+    <div class="body-object">
+        <h2>Draft a Blog Post</h2>
+    </div>
+    <div class="body-object">
+        <form id="post-form" action="/submit" method="POST">
+            <div class="post-form-container">
+                <div class="post-form-object">
+                    <input type="text" name="fname" placeholder="First Name*" value="<% if (locals.firstName ) { %><%= firstName %><% } %>" required>
+                </div>
+                <div class="post-form-object">
+                    <input type="text" name="lname" placeholder="Last Name*" value="<% if (locals.lastName ) { %><%= lastName %><% } %>" required>
+                </div>
+                <div class="post-form-object">
+                    <input type="text" name="title" placeholder="Title*" value="<% if (locals.title ) { %><%= title %><% } %>" required>
+                </div>
+                <div class="post-form-object">
+                    <textarea  name="content" placeholder="Content*" required><% if (locals.content ) { %><%= content %><% } %></textarea>
+                </div>
+                <div class="post-form-object">
+                    <input type="submit" value="Submit">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<%- include("partials/footer.ejs") %>
